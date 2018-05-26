@@ -21,18 +21,15 @@
         <h2>{{ timer }}</h2>
       </div>
     </div>
-    <div class="moles-container">
-      <div class="mole">{{ moles[0]}}</div>
-      <div class="mole">{{ moles[1]}}</div>
-      <div class="mole">{{ moles[2]}}</div>
-      <div class="mole">{{ moles[3]}}</div>
-    </div>
+    <Moles v-bind:molesState='moles'/>
   </div>
   
 </template>
 
 <script>
+import Moles from './components/Moles'
 export default {
+    name: 'App',
     data: ()=>{
         return{
             score: 10,
@@ -45,6 +42,10 @@ export default {
         startGame: function(){
             console.log('start');
         }
+    },
+    //子要素を親で要素で利用する
+    components:{
+        Moles: Moles
     }
   
 }
