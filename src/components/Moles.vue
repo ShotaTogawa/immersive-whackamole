@@ -1,20 +1,23 @@
 <template>
   <div class="moles-container">
-    <div class="mole"
+    <Mole class="mole"
       v-for="(mole,idx) in molesState"
+      v-bind:mole = mole
       v-bind:key = idx
-      >
-      {{ mole }}
-      </div>
+      />
   </div>
     
 </template>
 
 <script>
+import Mole from './Mole'
 export default {
     name: 'Moles',
     //親から子にデータを渡す
-    props: ['molesState']
+    props: ['molesState'],
+    components:{
+      Mole: Mole
+    }
     
 }
 </script>

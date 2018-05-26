@@ -35,7 +35,7 @@ export default {
             score: 10,
             highScore: 20,
             timer: 10,
-            moles: [false,false,false,false]
+            moles: [true,false,false,false]
         }
     },
     methods:{
