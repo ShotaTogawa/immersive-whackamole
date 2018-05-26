@@ -2,8 +2,10 @@
   <div class="moles-container">
     <Mole class="mole"
       v-for="(mole,idx) in molesState"
-      v-bind:mole = mole
-      v-bind:key = idx
+      v-bind:mole='mole'
+      v-bind:key='idx'
+      v-bind:idx='idx'
+      v-on:whacked='handleWhacked'
       />
   </div>
     
@@ -17,6 +19,11 @@ export default {
     props: ['molesState'],
     components:{
       Mole: Mole
+    },
+    methods:{
+      handleWhacked: function(idx){
+        this.$emit('whacked', idx)
+      }
     }
     
 }

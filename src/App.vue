@@ -21,7 +21,10 @@
         <h2>{{ timer }}</h2>
       </div>
     </div>
-    <Moles v-bind:molesState='moles'/>
+    <!--this.$emitで子から送られきたイベントでv-onでリッスンできる-->
+    <Moles 
+    v-bind:molesState='moles'
+    v-on:whacked='handleWhack'/>
   </div>
   
 </template>
@@ -41,14 +44,17 @@ export default {
     methods:{
         startGame: function(){
             console.log('start');
+        },
+        handleWhack: function(idx){
+            console.log('whacked ' + idx)
         }
     },
     //子要素を親で要素で利用する
     components:{
         Moles: Moles
     }
-  
 }
+  
 </script>
 
 <style>
