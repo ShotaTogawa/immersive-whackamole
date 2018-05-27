@@ -42,10 +42,27 @@ export default {
     },
     methods:{
         startGame: function(){
-            console.log('start');
+            this.startTimer();
         },
         handleWhack: function(idx){
             this.score++;
+        },
+        startTimer: function(){
+            //setInterval() メソッドは、一定の遅延間隔を置いて関数やコードスニペットを繰り返し呼び出します。
+            //これは、インターバルを一意に識別する interval ID を返します。
+            this.timerId = setInterval(() => {
+                this.decrementSec();
+            }, 1000);
+        },
+        decrementSec: function(){
+            this.timer--;
+            if(this.timer===0){
+                this.stopTimer();
+            }
+        },
+        stopTimer: function(){
+            //setInterval を使用して設定された繰り返し動作をキャンセルします。
+            clearInterval(this.timerId)
         }
     },
     //子要素を親で要素で利用する
