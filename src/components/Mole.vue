@@ -21,7 +21,7 @@ export default {
     name: 'Mole',
     props: ['active','moleId'],
     methods:{
-      whacked: function(){
+      whacked: function(moleId){
         //親コンポーネントにイベントを送出する。
         //第二引数で特定の値を親に送ることができる。
         this.$emit('whacked', this.moleId)

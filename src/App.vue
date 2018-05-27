@@ -23,7 +23,8 @@
     <!--this.$emitで子から送られきたイベントでv-onでリッスンできる-->
     <Moles 
     v-bind:molesState='moles'
-    v-on:whacked='handleWhack'/>
+    v-on:whacked='handleWhack'
+    v-bind:gameActive='gameActive'/>
   </div>
   
 </template>
@@ -31,19 +32,27 @@
 <script>
 import Moles from './components/Moles'
 import Counter from './components/Counter'
+
+const molesTimers = [0,0,0,0]
 export default {
     name: 'App',
     data: ()=>{
         return{
             score: 0,
             highScore: 20,
-            timer: 10,
-            moles: [true,false,false,false]
+            timer: 20,
+            moles: [false,false,false,false],
+            gameActive: false
         }
     },
     methods:{
         startGame: function(){
             this.startTimer();
+            this.score = 0;
+            this.timer = 20;
+            this.moles = [false,false,false,false]
+            this.gameActive = true
+            this.startMoles();
         },
         handleWhack: function(moleId){
             this.score++;
@@ -59,11 +68,45 @@ export default {
             this.timer--;
             if(this.timer===0){
                 this.stopTimer();
+                this.updateScore();
+                this.gameActive = false
+                this.stopMoles();
             }
         },
         stopTimer: function(){
             //setInterval を使用して設定された繰り返し動作をキャンセルします。
             clearInterval(this.timerId)
+        },
+        updateScore: function(){
+            if(this.score > this.highScore){
+                this.highScore = this.score
+            }
+        },
+        startMoles: function(){
+            this.molesTimer = setInterval(this.activateMoleRandomly.bind(this),500);
+        },
+        stopMoles: function(){
+            clearInterval(this.molesTimer);
+        },
+        activateMoleRandomly: function(){
+            const index = Math.floor(Math.random() * this.moles.length);
+            if(!this.moles[index]){
+                this.activateMole(index);
+            }
+        },
+        activateMole: function(id){
+            // 実際にmolesに情報を更新する
+            this.updateMole(id,true);
+            molesTimers[id] = setTimeout(this.deactivateMole.bind(this,id),2500);
+        },
+        deactivateMole: function(id){
+            // molesに対して情報を更新する
+            this.updateMole(id,false);
+        },
+        updateMole: function(id, active) {
+            const moles = this.moles.slice(0);
+            moles[id] = active;
+            this.moles = moles;
         }
     },
     //子要素を親で要素で利用する

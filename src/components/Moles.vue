@@ -1,5 +1,5 @@
 <template>
-  <div class="moles-container">
+  <div v-bind:class='classObject'>
     <Mole class="mole"
       v-for="(mole,idx) in molesState"
       v-bind:active='mole'
@@ -16,13 +16,21 @@ import Mole from './Mole'
 export default {
     name: 'Moles',
     //親から子にデータを渡す
-    props: ['molesState'],
+    props: ['molesState','gameActive'],
     components:{
       Mole: Mole
     },
     methods:{
       handleWhacked: function(moleId){
         this.$emit('whacked', moleId)
+      }
+    },
+    computed:{
+      classObject: function(){
+        return{
+          'moles-container': true,
+          'game-active': !!this.gameActive
+        }
       }
     }
     
