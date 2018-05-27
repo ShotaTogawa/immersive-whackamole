@@ -2,9 +2,9 @@
   <div class="moles-container">
     <Mole class="mole"
       v-for="(mole,idx) in molesState"
-      v-bind:mole='mole'
+      v-bind:active='mole'
       v-bind:key='idx'
-      v-bind:idx='idx'
+      v-bind:moleId='idx'
       v-on:whacked='handleWhacked'
       />
   </div>
@@ -21,8 +21,8 @@ export default {
       Mole: Mole
     },
     methods:{
-      handleWhacked: function(idx){
-        this.$emit('whacked', idx)
+      handleWhacked: function(moleId){
+        this.$emit('whacked', moleId)
       }
     }
     
@@ -30,5 +30,15 @@ export default {
 </script>
 
 <style>
+.moles-container {
+  display: flex;
+  justify-content: space-between;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.moles-container.game-active {
+  opacity: 1;
+}
 
 </style>

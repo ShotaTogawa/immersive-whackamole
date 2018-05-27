@@ -4,6 +4,7 @@
       Whackamole
     </h1>
     <button
+    class='start-game'
     v-on:click='startGame'>
       Start Game
     </button>
@@ -44,7 +45,7 @@ export default {
         startGame: function(){
             this.startTimer();
         },
-        handleWhack: function(idx){
+        handleWhack: function(moleId){
             this.score++;
         },
         startTimer: function(){
@@ -75,5 +76,36 @@ export default {
 </script>
 
 <style>
+.whackamole {
+  font-family: Bungee,cursive;
+  max-width: 800px;
+  width: 100%;
+  margin: auto;
+  margin-top: 20px;
+}
+.logo {
+  text-align: center;
+  margin: 30px;
+}
+.start-game {
+    margin: auto;
+    display: block;
+}
+button {
+  font-family: Bungee,cursive;
+  padding: 20px;
+  border-radius: 3px;
+  border: 0;
+  background-color: #52b1d6;
+  color: #fff;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color .2s ease;
+}
+.counters-container {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
 
 </style>
